@@ -30,34 +30,36 @@
     
     <div class="container">
         <div id="Gryffindor" class="house col-md-2">
-            Gryffindor
+            Gryffindor<br/>
         </div>
         <div id="Hufflepuff" class="house col-md-2">
-            Hufflepuff
+            Hufflepuff<br/>
         </div>
         <div id="Ravenclaw" class="house col-md-2">
-            Ravenclaw
+            Ravenclaw<br/>
         </div>
         <div id="Slytherin" class="house col-md-2">
-            Slytherin
+            Slytherin<br/>
         </div>
         <div id="Dumbledore" class="house col-md-2">
-            Dumbledore's Army
+            Dumbledore's Army<br/>
         </div>
     </div>
     <!-- script tag to write our JavaScript to store event of the button clicking-->
     <script type="text/javascript">
         var studentCount = 0;
+        var studentCountDown;
+        var count_div = document.getElementById("count");
         var countButton = document.getElementById("set_student_count");
         // var houses = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin", "Dumbledore"];
         var housesDict = {"Gryffindor":[], "Hufflepuff":[], "Ravenclaw":[], "Slytherin":[], "Dumbledore":[]}
 
         countButton.addEventListener('click', function(){
-           var count_div = document.getElementById("count");
            var inputCount = Number(document.getElementById("student_count").value);
            studentCount += inputCount;
            count_div.innerHTML = studentCount
-           document.getElementById("student_count").value = 0           
+           document.getElementById("student_count").value = 0
+           studentCountDown = studentCount;           
         });
 
         var sortButton = document.getElementById("sort");
@@ -65,31 +67,28 @@
 
         sortButton.addEventListener('click', function(){
             var randomHouse = Object.keys(housesDict)[Math.floor(Math.random() * Object.keys(housesDict).length)];
+            if (studentCountDown == 0){
+                return;
+            }
             if (housesDict[randomHouse].length < studentCount/5){
                 housesDict[randomHouse].push(student_sort.value)
                 console.log(housesDict);
                 var houseId = document.getElementById(randomHouse);
                 console.log(houseId.innerHTML)
-                houseId.innerHTML += student_sort.value;
+                houseId.innerHTML += student_sort.value +"<br/>";
                 if (housesDict[randomHouse].length >= studentCount/5){
-                    delete housesDict[randomHouse];
-                }             
+                    delete housesDict[randomHouse];   
+                } 
+                count_div.innerHTML = studentCountDown - 1; 
+                studentCountDown--; 
             }
-            // else{
-            //     continue
+
             
 
 
 
 
-            // console.log(randomHouse);
-            // if (assignedHouses.length < (studentCount/5)){
-            //     assignedHouses.push(randomHouse);
-            //     console.log(assignedHouses);
-            // }
-            // else{
-            //     console.log("else")
-            // };
+
         });
         </script>   
 
