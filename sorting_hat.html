@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <h1>Sorting Hat</h1>
+
+    <div class="form">
+            <input type="number" id="student_count">
+            <button id="set_student_count">Set Student Count</button>
+            <div id="count"></div>
+    </div>
+    <div class="form">
+        <input type="text" id="student_sort">
+        <button id="sort">Sort!</button>
+        <div id="assign"></div>
+    </div>
+
+    
+    <div class="container">
+        <div id="Gryffindor" class="house col-md-2">
+            Gryffindor
+        </div>
+        <div id="Hufflepuff" class="house col-md-2">
+            Hufflepuff
+        </div>
+        <div id="Ravenclaw" class="house col-md-2">
+            Ravenclaw
+        </div>
+        <div id="Slytherin" class="house col-md-2">
+            Slytherin
+        </div>
+        <div id="Dumbledore" class="house col-md-2">
+            Dumbledore's Army
+        </div>
+    </div>
+    <!-- script tag to write our JavaScript to store event of the button clicking-->
+    <script type="text/javascript">
+        var studentCount = 0;
+        var countButton = document.getElementById("set_student_count");
+        // var houses = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin", "Dumbledore"];
+        var housesDict = {"Gryffindor":[], "Hufflepuff":[], "Ravenclaw":[], "Slytherin":[], "Dumbledore":[]}
+
+        countButton.addEventListener('click', function(){
+           var count_div = document.getElementById("count");
+           var inputCount = Number(document.getElementById("student_count").value);
+           studentCount += inputCount;
+           count_div.innerHTML = studentCount
+           document.getElementById("student_count").value = 0           
+        });
+
+        var sortButton = document.getElementById("sort");
+
+
+        sortButton.addEventListener('click', function(){
+            var randomHouse = Object.keys(housesDict)[Math.floor(Math.random() * Object.keys(housesDict).length)];
+            if (housesDict[randomHouse].length < studentCount/5){
+                housesDict[randomHouse].push(student_sort.value)
+                console.log(housesDict);
+                var houseId = document.getElementById(randomHouse);
+                console.log(houseId.innerHTML)
+                houseId.innerHTML += student_sort.value;
+                if (housesDict[randomHouse].length >= studentCount/5){
+                    delete housesDict[randomHouse];
+                }             
+            }
+            // else{
+            //     continue
+            
+
+
+
+
+            // console.log(randomHouse);
+            // if (assignedHouses.length < (studentCount/5)){
+            //     assignedHouses.push(randomHouse);
+            //     console.log(assignedHouses);
+            // }
+            // else{
+            //     console.log("else")
+            // };
+        });
+        </script>   
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  </body>
+</html>
